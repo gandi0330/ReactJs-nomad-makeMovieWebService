@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="root"></div>
+    </body>
+
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        const root = document.getElementById("root");
+        
+        // 시간, 분 변환기 앱
+        // useState 연습
+        // useState로 분 -> 시 , 시 -> 분 변환
+        // disable로 input 입력 막는 것을 바꾸기
+        function App() {
+            
+            const [amount, setAmount] =  React.useState(0);
+            const [flipped, setFlipped] = React.useState(false);
+            const onChange = (event) => {
+                setAmount(event.target.value);
+            }
+            const reset = () => setAmount(0);
+            const onFlip = () => {
+                setFlipped((current) => !current);
+                reset();
+            }
+            
+            return (
+                <div>
+                    <div>
+                        <h1>Super Converter</h1>
+                        <label>Minutes</label>
+                        <input value={flipped ? amount * 60 : amount} onChange={onChange} placeholder="Minutes" type="number" disabled={flipped}/>
+                    </div>
+                    <div>
+                        <label>Hours</label>
+                        <input value={flipped ? amount : Math.round(amount/60)}  onChange={onChange} placeholder="Hours" type="number" disabled={!flipped} />
+                    </div>
+                    <button onClick={reset}>Reset</button>
+                    <button onClick={onFlip}>Flip</button>
+                </div>
+            )
+            
+        };
+
+        ReactDOM.render(<App/>, root);
+    </script>
+
+</html>
